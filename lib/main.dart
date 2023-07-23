@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sign_in/sign_in.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,22 +12,21 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: LandingPage(), 
+        body: LandingPage(),
       ),
     );
   }
 }
 
-
 class LandingPage extends StatefulWidget {
-	const LandingPage({super.key});	
-	@override
-	_LandingPageState createState() => _LandingPageState();
+  const LandingPage({super.key});
+  @override
+  _LandingPageState createState() => _LandingPageState();
 }
 
 class _LandingPageState extends State<LandingPage> {
-	@override 
-	Widget build(BuildContext context) {
-		return const Text("hello, ");
-	}
+  @override
+  Widget build(BuildContext context) {
+    return const SignInScreen();
+  }
 }
