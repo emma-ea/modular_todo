@@ -11,10 +11,22 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+        body: LandingPage(), 
       ),
     );
   }
+}
+
+
+class LandingPage extends StatefulWidget {
+	const LandingPage({super.key});	
+	@override
+	_LandingPageState createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+	@override 
+	Widget build(BuildContext context) {
+		return const Text("hello, ");
+	}
 }
