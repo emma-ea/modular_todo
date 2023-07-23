@@ -13,6 +13,11 @@ dependencies:
     sdk: flutter
   component_library:
     path: ../../component_library
+  user_repository:
+    path: ../../user_repository
+  auth:
+    path: ../../auth
+
   flutter_bloc: ^8.1.3
   bloc: ^8.1.2
 

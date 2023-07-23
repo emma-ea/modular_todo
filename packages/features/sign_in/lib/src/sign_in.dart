@@ -1,5 +1,7 @@
+import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:component_library/component_library.dart';
+import 'package:user_repository/user_repository.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -9,16 +11,17 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  late TextEditingController userNameController;
+  late TextEditingController emailController;
   late TextEditingController passwordController;
 
-  final String signInButton = 'Sign In';
+  late UserRepository userRepository;
 
   @override
   void initState() {
     super.initState();
-    userNameController = TextEditingController();
+    emailController = TextEditingController();
     passwordController = TextEditingController();
+    userRepository = UserRepository(Auth());
   }
 
   double width7th() => MediaQuery.of(context).size.width * .9;
@@ -34,17 +37,18 @@ class _SignInScreenState extends State<SignInScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               MtSignInTextField(
-                inputHint: 'Username',
-                inputController: userNameController,
+                inputHint: AppStrings.signInEmail,
+                inputController: emailController,
               ),
               const SizedBox(height: 10.0),
               MtSignInTextField(
-                inputHint: 'Password',
+                inputHint: AppStrings.signInPassword,
                 isPassword: true,
                 inputController: passwordController,
               ),
               MtSignInButton(
-                  buttonCallback: signInCallback, label: signInButton),
+                  buttonCallback: signInCallback,
+                  label: AppStrings.signInButton),
             ],
           ),
         ),
@@ -53,11 +57,12 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void signInCallback() {
-    String userName = userNameController.text;
+    String email = emailController.text;
     String password = passwordController.text;
 
-    if (userName.isEmpty || password.length < 5) return;
+    if (email.isEmpty || password.length < 5) return;
 
     // run auth
+    userRepository.signIn(email, password);
   }
 }
