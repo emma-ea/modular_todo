@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:isolate';
 
 import 'package:flutter/material.dart';
-import 'package:modular_todo/src/landing.dart';
+import 'package:modular_todo/src/modular_todo.dart';
 import 'package:monitoring/monitoring.dart';
 
 void main() {
-  final errorReportingService = ErrorReportingService();
+  late final errorReportingService = ErrorReportingService();
 
   runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    initializeMonitoringService();
+    await initializeMonitoringService();
 
     FlutterError.onError = errorReportingService.recordFlutterError;
 
@@ -38,7 +38,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: LandingPage(),
+        body: ModularTodo(),
       ),
     );
   }

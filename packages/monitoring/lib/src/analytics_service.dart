@@ -6,12 +6,12 @@ class AnalyticsService {
 
   final FirebaseAnalytics _analytics;
 
-  void setCurrentScreen({String? screenName}) {
-    _analytics.setCurrentScreen(screenName: screenName);
+  Future<void> setCurrentScreen({String? screenName}) async {
+    return _analytics.setCurrentScreen(screenName: screenName);
   }
 
-  void logEvent(
-      {required String eventName, Map<String, dynamic>? eventParams}) {
-    _analytics.logEvent(name: eventName, parameters: eventParams);
+  Future<void> logEvent(
+      {required String eventName, Map<String, dynamic>? eventParams}) async {
+    return _analytics.logEvent(name: eventName, parameters: eventParams);
   }
 }
