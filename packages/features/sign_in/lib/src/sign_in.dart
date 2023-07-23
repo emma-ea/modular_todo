@@ -21,22 +21,32 @@ class _SignInScreenState extends State<SignInScreen> {
     passwordController = TextEditingController();
   }
 
+  double width7th() => MediaQuery.of(context).size.width * .9;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            MtSignInTextField(
-              inputController: userNameController,
-            ),
-            MtSignInTextField(
-              inputController: passwordController,
-            ),
-            MtSignInButton(buttonCallback: signInCallback, label: signInButton),
-          ],
+      body: Center(
+        child: SizedBox(
+          width: width7th(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              MtSignInTextField(
+                inputHint: 'Username',
+                inputController: userNameController,
+              ),
+              const SizedBox(height: 10.0),
+              MtSignInTextField(
+                inputHint: 'Password',
+                isPassword: true,
+                inputController: passwordController,
+              ),
+              MtSignInButton(
+                  buttonCallback: signInCallback, label: signInButton),
+            ],
+          ),
         ),
       ),
     );
