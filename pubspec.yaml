@@ -12,6 +12,8 @@ dependencies:
 
   sign_in:
     path: packages/features/sign_in
+  monitoring:
+    path: packages/monitoring
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,34 @@
+import 'dart:async';
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
-import 'package:sign_in/sign_in.dart';
+import 'package:modular_todo/src/landing.dart';
+import 'package:monitoring/monitoring.dart';
 
 void main() {
-  runApp(const MainApp());
+  final errorReportingService = ErrorReportingService();
+
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    initializeMonitoringService();
+
+    FlutterError.onError = errorReportingService.recordFlutterError;
+
+    Isolate.current.addErrorListener(RawReceivePort((pair) async {
+      final List<dynamic> errorAndStackTrace = pair;
+      await errorReportingService.recordError(
+        errorAndStackTrace.first,
+        errorAndStackTrace.last,
+      );
+    }).sendPort);
+
+    runApp(const MainApp());
+  },
+      (error, stack) => errorReportingService.recordError(
+            error,
+            stack,
+            fatal: true,
+          ));
 }
 
 class MainApp extends StatelessWidget {
@@ -15,18 +41,5 @@ class MainApp extends StatelessWidget {
         body: LandingPage(),
       ),
     );
-  }
-}
-
-class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
-  @override
-  _LandingPageState createState() => _LandingPageState();
-}
-
-class _LandingPageState extends State<LandingPage> {
-  @override
-  Widget build(BuildContext context) {
-    return const SignInScreen();
   }
 }
