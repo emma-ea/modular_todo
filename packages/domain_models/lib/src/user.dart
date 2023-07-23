@@ -1,6 +1,7 @@
 class User {
-	final String username;
-	final String password;
+  final String userName;
+  final String profileUrl;
+  final String address;
 
-	const User(this.username, this.password);
+  const User(this.userName, this.profileUrl, this.address);
 }
